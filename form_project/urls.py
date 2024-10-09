@@ -21,5 +21,10 @@ import form_example.views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('form-example/', form_example.views.form_example)
+    path("form-example/", form_example.views.form_example),
+    path("django-form/", form_example.views.form_django_example),
+    path("success-page/", form_example.views.user_login),
+    path("user_login/", form_example.views.user_login),
+
+    # path("view_func/", form_example.views.view_function),
 ]

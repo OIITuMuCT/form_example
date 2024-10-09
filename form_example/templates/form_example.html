@@ -7,26 +7,29 @@
 </head>
 <h2>Страница на которой отображены примеры форм.</h2>
 <body>
-
+<h4>Method: {{ method }}</h4>
     <form method="post" action="">
-        <!-- Форма для ввода текста -->
+        {% csrf_token %}
+        <!-- 1. Форма для ввода текста -->
         <p>
             <label for="id_text_input">Text Input</label><br>
             <input id="id_text_input" type="text" 
                 name="text_input" value="" placeholder="Enter  some text">
         </p>
-        <!-- Форма для ввода пароля -->
+        <!-- 2. Форма для ввода пароля -->
         <p><label for="id_password_input">Password Input
         </label><br>
         <input id="id_password_input" type="password" 
         name="password_input" value="" placeholder="Your password">
         </p>
-        <!--Форма для выбора checkbox-->
-        <p><input id="id_checkbox_input" type="checkbox"
-            name="checkbox_on" value="Checkbox Checked" checked>
+        <!-- 3. Форма для выбора checkbox-->
+        <p>
+            <input id="id_checkbox_input" type="checkbox"
+                name="checkbox_on" value="Checkbox Checked"
+                checked>
             <label for="id_checkbox_input">Checkbox</label>
         </p>
-        <!--Форма выбора радио-кнопка-->
+        <!-- 4. Форма выбора радио-кнопка-->
         <p>
             <input id="id_radio_one_input" type="radio" 
             name="radio_input" value="Value One">
@@ -38,7 +41,7 @@
             id="id_radio_three_input" value="Value Three">
             <label for="id_radio_three_input">Value Three</label>
         </p>
-        <!-- Форма всплывающий список -->
+        <!-- 5. Форма всплывающий список -->
         <p>
             <label for="id_favorite_book">Favorite Book
             </label><br>
@@ -53,6 +56,21 @@
                 </optgroup>
             </select>
         </p>
+        <!--12. Форма для ввода -->
+        <label for="id_books_you_own">Books You Own
+        </label><br>
+        <select name="books_you_own" id="id_books_you_own" multiple>
+            <optgroup label="Non-Function">
+                <option value="1">Deep Learning with 
+                    Keras</option>
+                <option value="2">Web Devolopment with 
+                    Django</option>
+                <optgroup label="Function">
+                    <option value="3">Brave New World</option>
+                    <option value="4">The Great Catsby</option>
+                </optgroup>
+            </optgroup>
+        </select>
         <!-- Форма для вода текста -->
         <p>
             <label for="id_text_area">Text Area</label><br>
@@ -95,6 +113,7 @@
         <p>
             <input type="hidden" name="hidden_input" value="Hidden Value">
         </p>
+        
     </form>
 </body>
 </html>

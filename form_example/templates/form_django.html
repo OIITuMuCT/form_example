@@ -1,0 +1,42 @@
+<h1>Вывод форм таблицей: </h1>
+<form method="post">
+    <table>
+        {% csrf_token %}
+        {{form.as_table}}
+
+    </table>
+    <p>
+        <input type="submit" name="submit_input" value="submit">    
+    </p>
+    <p>
+        <button type="submit" name="button_element" 
+        value="Button Element">
+        Button With<strong>Styled</strong>Text</button>
+    </p>
+</form>
+{% comment %} <h1>Вывод форм списком: </h1>
+<form action="" method="post">
+    <ul>
+        {{form.as_ul}}
+    </ul>
+        <p>
+        <input type="submit" value="submit">    
+    </p>
+    <p>
+        <button type="submit" name="button_element" 
+        value="Button Element">
+        Button With<strong>Styled</strong>Text</button>
+    </p>
+</form>
+<h1>Вывод форм параграфом</h1>
+<form action="" method="post">
+    {{form.as_p}}
+        <p>
+        <input type="submit" value="submit">    
+    </p>
+    <p>
+        <button type="submit" name="button_element" 
+        value="Button Element">
+        Button With<strong>Styled</strong>Text</button>
+    </p>
+</form> {% endcomment %}
