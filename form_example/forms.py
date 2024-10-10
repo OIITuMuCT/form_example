@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 
 RADIO_CHOICES = (
     ("Value One", "Value One"),
@@ -20,9 +21,14 @@ BOOK_CHOICES = (
     ("Fiction", (("3", "Brave New World"), ("4", "The Great Gatsby"))),
 )
 
+def validate_lowercase(value):
+    if value.lower() != value:
+        raise ValidationError("{} is not lowercase."
+                                .format(value))
+    return value
 
 class ExampleForm(forms.Form):
-    text_input = forms.CharField(max_length=3)
+    text_input = forms.CharField(validators=[validate_lowercase])
     password_input = forms.CharField(min_length=8, widget=forms.PasswordInput)
     checkbox_on = forms.BooleanField()
     radio_input = forms.ChoiceField(choices=RADIO_CHOICES, widget=forms.RadioSelect)
@@ -38,12 +44,13 @@ class ExampleForm(forms.Form):
     book_you_own = forms.MultipleChoiceField(required=False, choices=BOOK_CHOICES)
     hidden_input = forms.CharField(widget=forms.HiddenInput, initial="Hidden Value")
 
+    def clean_text_input(self):
+        value = self.cleaned_data['text_input']
+        return value.lower()
+
 
 class UserLoginForm(forms.Form):
     name = forms.CharField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput)
     integer_input = forms.IntegerField()
     birthday = forms.DateField(widget=forms.DateInput(attrs={"type": "date"}))
-
-
-
