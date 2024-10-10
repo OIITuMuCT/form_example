@@ -25,6 +25,8 @@ urlpatterns = [
     path("django-form/", form_example.views.form_django_example),
     path("success-page/", form_example.views.user_login),
     path("user_login/", form_example.views.user_login),
+    path("newsletter/" , form_example.views.newsletter),
+    path("order/", form_example.views.order),
 
     # path("view_func/", form_example.views.view_function),
 ]

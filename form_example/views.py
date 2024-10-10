@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import ExampleForm, UserLoginForm
+from .forms import ExampleForm, UserLoginForm, NewsletterSignupForm, OrderForm
 
 
 # Create your views here.
@@ -47,3 +47,11 @@ def user_login(request):
     for name in request.POST:
         print("{} : {}".format(name, request.POST.getlist(name)))
     return render(request, "form_login.html", {"method": request.method, "form": form})
+
+def newsletter(request):
+    form = NewsletterSignupForm()
+    return render(request, 'newsletter.html', {"form": form})
+
+def order(request):
+    form = OrderForm()
+    return render(request, 'order_form.html', {"form": form})

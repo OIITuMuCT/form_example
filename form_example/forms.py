@@ -21,14 +21,24 @@ BOOK_CHOICES = (
     ("Fiction", (("3", "Brave New World"), ("4", "The Great Gatsby"))),
 )
 
+class OrderForm(forms.Form):
+    item_a = forms.IntegerField(min_value=0, max_value=100)
+    item_b = forms.IntegerField(min_value=0, max_value=100)
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data.get("item_a", 0) + \
+            cleaned_data.get("item_b", 0) > 100:
+                self.add_error(None, "The total number of items must be 100 or less")
+
 def validate_lowercase(value):
     if value.lower() != value:
-        raise ValidationError("{} is not lowercase."
-                                .format(value))
-    return value
+        raise ValidationError("{} is not lowercase.".format(value))
+    return value.lower()
+
 
 class ExampleForm(forms.Form):
-    text_input = forms.CharField(validators=[validate_lowercase])
+    text_input = forms.CharField()
     password_input = forms.CharField(min_length=8, widget=forms.PasswordInput)
     checkbox_on = forms.BooleanField()
     radio_input = forms.ChoiceField(choices=RADIO_CHOICES, widget=forms.RadioSelect)
@@ -45,7 +55,7 @@ class ExampleForm(forms.Form):
     hidden_input = forms.CharField(widget=forms.HiddenInput, initial="Hidden Value")
 
     def clean_text_input(self):
-        value = self.cleaned_data['text_input']
+        value = self.cleaned_data["text_input"]
         return value.lower()
 
 
@@ -54,3 +64,20 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
     integer_input = forms.IntegerField()
     birthday = forms.DateField(widget=forms.DateInput(attrs={"type": "date"}))
+
+
+class NewsletterSignupForm(forms.Form):
+    signup = forms.BooleanField(label="Sign up to newsletter?", required=True)
+    email = forms.EmailField(
+        help_text="Enter your email address to subscribe", required=False
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if cleaned_data["signup"] and not cleaned_data.get("email"):
+            self.add_error(
+                "email",
+                "Your email address is \
+            required if signing up for the newsletter.",
+            )
