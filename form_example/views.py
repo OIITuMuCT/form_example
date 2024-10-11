@@ -3,6 +3,10 @@ from .forms import ExampleForm, UserLoginForm, NewsletterSignupForm, OrderForm, 
 
 
 # Create your views here.
+def index(request):
+    
+    return render(request, "index.html")
+
 def form_example(request):
     if request.method == "POST":
         form = ExampleForm(request.POST)
@@ -47,19 +51,25 @@ def user_login(request):
     return render(request, "form_login.html", {"method": request.method, "form": form})
 
 def newsletter(request):
-    form = NewsletterSignupForm(request.POST)
-    return render(request, 'newsletter.html', {"form": form})
+    if request.method == "POST":
+        form = NewsletterSignupForm(request.POST)
+        if form.is_valid():
+            for name, value in form.cleaned_data.items():
+                print("{}: ({}) {}".format(name, type(value), value))
+    else:
+        form = NewsletterSignupForm()
+    return render(request, 'newsletter.html', {"method": request.method,"form": form})
 
 def order(request):
-    form = OrderForm(request.POST)
+    initial = {"email":"user@example.com"}
+    form = OrderForm(request.POST, initial=initial)
     if form.is_valid():
         for name, value in form.cleaned_data.items():
             print("{}: ({}) {}".format(name, type(value), value))
 
     else:
-        form = OrderForm()
-    # for name in request.POST:
-    #     print("{}: {}".format(name, request.POST.getlist(name)))
+        form = OrderForm(initial=initial)
+
     return render(request, "order_form.html", {"method": request.method, "form": form})
 
 def example_placeholder(request):
