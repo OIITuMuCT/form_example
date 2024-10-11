@@ -1,5 +1,13 @@
+<h1>Method: {{ method }}</h1>
 <form action="" method="post">
-    {{form.as_p}}
-    {% csrf_token %}
-    <input type="submit" value="Submit">
+  {% csrf_token %}
+  {{form.as_p}}
+  <p>
+    <input type="submit" value="Submit input" />
+  </p>
+  <p>
+    <button type="submit" name="button_element" value="Button Element">
+      Button With<strong>Styled</strong>Text
+    </button>
+  </p>
 </form>

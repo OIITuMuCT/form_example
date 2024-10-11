@@ -27,6 +27,7 @@ urlpatterns = [
     path("user_login/", form_example.views.user_login),
     path("newsletter/" , form_example.views.newsletter),
     path("order/", form_example.views.order),
+    path("placeholder/", form_example.views.example_placeholder),
 
     # path("view_func/", form_example.views.view_function),
 ]
