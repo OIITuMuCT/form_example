@@ -135,3 +135,10 @@ class ExamplePlaceholderForm(forms.Form):
     password_field = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Password Placeholder"}))
     email_field = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "Email Placeholder"}))
     text_area = forms.CharField(widget=forms.Textarea(attrs={"placeholder": "Text Area Placeholder"}))
+    
+
+
+class PublisherForm(forms.Form):
+    name = forms.CharField(max_length=50)
+    website = forms.URLField()
+    email = forms.EmailField()
