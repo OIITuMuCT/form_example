@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from .models import Publisher
 
 RADIO_CHOICES = (
     ("Value One", "Value One"),
@@ -138,7 +139,7 @@ class ExamplePlaceholderForm(forms.Form):
     
 
 
-class PublisherForm(forms.Form):
-    name = forms.CharField(max_length=50)
-    website = forms.URLField()
-    email = forms.EmailField()
+class PublisherForm(forms.ModelForm):
+    class Meta:
+        model = Publisher
+        fields = "__all__"

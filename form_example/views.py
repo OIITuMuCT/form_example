@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import ExampleForm, UserLoginForm, NewsletterSignupForm, OrderForm, ExamplePlaceholderForm, PublisherForm
-from .models import Publisher
+
 
 # Create your views here.
 def index(request):
@@ -89,11 +89,9 @@ def example_placeholder(request):
     return render(request, "form_exp_place.html", {"method": request.method, "form": form})
 
 
-def publisher_view(request):
-    form = PublisherForm()
-    if create:
-        initial = {}
-    else:
-        publisher = Publisher.objects.get(pk=pk)
-        initial = {"name": publisher.name, "website": publisher.website}
-    form = PublisherForm(initial=initial)
+def publisher_edit(request):
+    form = PublisherForm(request.POST)
+    # if request.method == "POST":
+    # else:
+    #     form = PublisherForm()
+    return render(request, "publisher.html", {"form": form})
