@@ -7,5 +7,5 @@ class Publisher(models.Model):
     website = models.URLField()
     email = models.EmailField()
 
-def __str__(self):
-    return self.name
+    def __str__(self):
+        return self.name
