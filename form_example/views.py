@@ -1,11 +1,14 @@
-from django.shortcuts import render, redirect
-from .forms import ExampleForm, UserLoginForm, NewsletterSignupForm, OrderForm, ExamplePlaceholderForm, PublisherForm
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Publisher
+from django.contrib import messages
+from .forms import ExampleForm, UserLoginForm, NewsletterSignupForm, \
+    OrderForm, ExamplePlaceholderForm, PublisherForm, SearchForm
 
 
 # Create your views here.
 def index(request):
-    
-    return render(request, "index.html")
+    context = Publisher.objects.all()
+    return render(request, "index.html", {"context" : context})
 
 def form_example(request):
     if request.method == "POST":
@@ -89,9 +92,21 @@ def example_placeholder(request):
     return render(request, "form_exp_place.html", {"method": request.method, "form": form})
 
 
-def publisher_edit(request):
-    form = PublisherForm(request.POST)
-    # if request.method == "POST":
-    # else:
-    #     form = PublisherForm()
-    return render(request, "publisher.html", {"form": form})
+def publisher_edit(request, pk=None):
+    if pk is not None:
+        publisher = get_object_or_404(Publisher, pk=pk)
+    else:
+        publisher = None
+    if request.method == "POST":
+        form = PublisherForm(request.POST, instance=publisher)
+        if form.is_valid():
+            updated_publisher = form.save()
+            if publisher is None:
+                messages.success(request, "Publisher  '{}' was created.".format(updated_publisher))
+            else:
+                messages.success(request, "Publisher '{}' was updated.".format(updated_publisher))
+            return redirect("publisher_edit", updated_publisher.pk)
+            
+    else:
+        form = PublisherForm(instance=publisher)
+    return render(request, "publisher.html", {"method": request.method, "form": form})

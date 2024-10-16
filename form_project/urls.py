@@ -29,7 +29,8 @@ urlpatterns = [
     path("newsletter/" , form_example.views.newsletter),
     path("order/", form_example.views.order),
     path("placeholder/", form_example.views.example_placeholder),
-    path("publisher/", form_example.views.publisher_edit),
+    path("publishers/<int:pk>", form_example.views.publisher_edit, name="publisher_edit"),
+    path("publishers/new/", form_example.views.publisher_edit, name="publisher_create")
 
     # path("view_func/", form_example.views.view_function),
 ]

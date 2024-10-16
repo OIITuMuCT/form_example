@@ -1,3 +1,10 @@
+<body>
+    <h4>Method: {{ method }}</h4>
+    {% for message in messages %}
+    <p><em>{{message.level_tag|title }}:</em>
+        {{ message }}</p>
+    {% endfor %}
+
 <form action="" method="post">
     {{form.as_p}}
     {% csrf_token %}
@@ -6,3 +13,5 @@
         Button With <strong>Styled</strong>Text
     </button>
 </form>
+<button><a href="/">Back</a></button>
+</body>

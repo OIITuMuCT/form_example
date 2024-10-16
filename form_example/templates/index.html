@@ -18,8 +18,25 @@
             <a href="newsletter">Newsletter</a>
             <a href="order/">Order</a>
             <a href="placeholder">Placeholder</a>
-            <a href="publisher/">Publisher</a>
+            <a href="publishers/new/">Create</a>
+            <a href="publishers/<int:pk>">Detail</a>
         </p>
     </ul>
+    <div class="alert alert-{% if message.level_tag == 'error' %} 
+    danger{% else %}{{ message.level_tag }}{% endif %}" 
+    role="alert">
+    {{ message }}
+    </div>
+    <div>
+    <h1>список издателей:</h1>
+    <ul>
+        
+        {% for pub in context %}
+        <li>
+        <p>Name: <strong>{{pub.name}}</strong> </p><p>Website: <a href= "{{pub.website}}">{{pub.website}}</link></a></p></li>
+        {% endfor %}
+    </ul>
+    </div>
+
 </body>
 </html>

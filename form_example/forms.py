@@ -136,7 +136,14 @@ class ExamplePlaceholderForm(forms.Form):
     password_field = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder": "Password Placeholder"}))
     email_field = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "Email Placeholder"}))
     text_area = forms.CharField(widget=forms.Textarea(attrs={"placeholder": "Text Area Placeholder"}))
-    
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(min_length=3, required=False)
+    search_in = forms.ChoiceField(
+        required=False,
+        choices=(("name", "Name"), ("website", "Website"), ("email", "Email")),
+    )
 
 
 class PublisherForm(forms.ModelForm):
